@@ -5,6 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MedicinesForm from './MedicinesForm';
 import { Update } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMedicines, getMedicines } from '../../../redux/action/medicines.action';
+import { GET_MEDICINES } from '../../../redux/Action.type';
 
 
 export function Medicines() {
@@ -12,12 +15,11 @@ export function Medicines() {
     const [mData, setMData] = useState([]);
     const [updateMedicine, setUpdateMedicine] = useState(false)
 
-    React.useEffect(() => {
-        let locaData = JSON.parse(localStorage.getItem('medicines'));
+    const dispatch = useDispatch();
+    const medicine = useSelector(state => state.medicines)
 
-        if (locaData) {
-            setMData(locaData)
-        }
+    React.useEffect(() => {
+       dispatch(getMedicines())
     }, [])
 
     const handleFormSubmit = (data) => {
@@ -48,11 +50,12 @@ export function Medicines() {
     }
 
     const handleDelete = (id) => {
-        console.log("ddddddd");
-        let locaData = JSON.parse(localStorage.getItem('medicines'));
-        const updateData = locaData.filter((v) => v.id !== id);
-        localStorage.setItem('medicines', JSON.stringify(updateData));
-        setMData(updateData);
+        // console.log("ddddddd");
+        // let locaData = JSON.parse(localStorage.getItem('medicines'));
+        // const updateData = locaData.filter((v) => v.id !== id);
+        // localStorage.setItem('medicines', JSON.stringify(updateData));
+        // setMData(updateData);
+        dispatch(deleteMedicines(id))
     }
 
     const handleEdit = (data) => {
@@ -88,7 +91,7 @@ export function Medicines() {
            
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={mData}
+                    rows={medicine.medicines}
                     columns={columns}
                     initialState={{
                         pagination: {
