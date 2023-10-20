@@ -9,16 +9,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 
-function DoctorForm({onhandlesubmit,updateData}) {
+function DoctorForm({ onhandlesubmit, updateData }) {
 
     const [openDialog, setOpenDialog] = React.useState(false);
 
     useEffect(() => {
-        if(updateData) {
+        if (updateData) {
             setValues(updateData);
             handleClickOpenDialog()
         }
-    },[updateData])
+    }, [updateData])
     const handleClickOpenDialog = () => {
         setOpenDialog(true);
     };
@@ -27,16 +27,16 @@ function DoctorForm({onhandlesubmit,updateData}) {
         setOpenDialog(false);
     };
 
-    
+
     let docSchema = yup.object().shape({
         name: yup.string().required("Please enter name"),
         desc: yup.string().required("Please enter Descripation"),
         desig: yup.string().required("Please enter Designation"),
         profile: yup.string().required("Please enter Profile")
-        
+
     })
 
-    
+
     const formikObject = useFormik({
         initialValues: {
             name: '',
@@ -44,7 +44,7 @@ function DoctorForm({onhandlesubmit,updateData}) {
             desig: '',
             profile: ''
         },
-        onSubmit: (values,action) => {
+        onSubmit: (values, action) => {
             onhandlesubmit(values);
             console.log(values);
             action.resetForm();
@@ -54,10 +54,10 @@ function DoctorForm({onhandlesubmit,updateData}) {
         validationSchema: docSchema
     })
 
-    const { handleSubmit, handleBlur, handleChange, errors, values, touched , setValues} = formikObject
+    const { handleSubmit, handleBlur, handleChange, errors, values, touched, setValues } = formikObject
     return (
         <>
-                   <Button variant="outlined" onClick={handleClickOpenDialog}>
+            <Button variant="outlined" onClick={handleClickOpenDialog}>
                 Add Doctor Details
             </Button>
             <Dialog open={openDialog} onClose={handleCloseDialog} onSubmit={handleSubmit}>
@@ -123,8 +123,8 @@ function DoctorForm({onhandlesubmit,updateData}) {
                     <Button onClick={handleCloseDialog}>Cancel</Button>
                     <Button onClick={handleSubmit} type='submit'>{updateData ? 'Update' : 'Add'}</Button>
                 </DialogActions>
-            </Dialog>  
-            
+            </Dialog>
+
         </>
     );
 }

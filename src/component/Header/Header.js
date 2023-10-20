@@ -5,8 +5,13 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { incrementCart } from '../../redux/action/cart.action';
+import { useSelector } from 'react-redux';
 
-function Header({ countCart,wishList }) {
+function Header({wishList }) {
+
+    const cart = useSelector(state=> state.cart) 
+    console.log(cart);
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -25,12 +30,17 @@ function Header({ countCart,wishList }) {
                         <i className="bi bi-phone" /> +91 9988776655
                     </div>
                     <div className="d-none d-lg-flex social-links align-items-center">
-                       
-                        <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={countCart} color="secondary">
-                                <ShoppingCartIcon />
-                            </StyledBadge>
-                        </IconButton>
+                        <NavLink
+                            className={({ isActive, isPending }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"
+                            }
+                            to={"/cart"}
+                        >
+                            <IconButton aria-label="cart">
+                                <StyledBadge badgeContent={cart.cart.length} color="secondary">
+                                    <ShoppingCartIcon />
+                                </StyledBadge>
+                            </IconButton>
+                        </NavLink>
                         <IconButton aria-label="cart">
                             <StyledBadge badgeContent={wishList.length} color="secondary">
                                 <FavoriteBorderIcon />
@@ -116,7 +126,7 @@ function Header({ countCart,wishList }) {
                                 Contact
                             </NavLink>
                             </li>
-                          
+
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>

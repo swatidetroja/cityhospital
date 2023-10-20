@@ -6,62 +6,37 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MedicinesForm from './MedicinesForm';
 import { Update } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteMedicines, getMedicines } from '../../../redux/action/medicines.action';
+import { addMedicines, deleteMedicines, getMedicines, updateMedicines } from '../../../redux/action/medicines.action';
 import { GET_MEDICINES } from '../../../redux/Action.type';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 export function Medicines() {
 
-    const [mData, setMData] = useState([]);
     const [updateMedicine, setUpdateMedicine] = useState(false)
 
     const dispatch = useDispatch();
     const medicine = useSelector(state => state.medicines)
 
     React.useEffect(() => {
-       dispatch(getMedicines())
+        dispatch(getMedicines())
     }, [])
 
     const handleFormSubmit = (data) => {
-        let id = Math.floor(Math.random() * 1000);
-        let locaData = JSON.parse(localStorage.getItem('medicines'));
 
-        if (locaData) {
-
-            if(updateMedicine){
-                let index = locaData.findIndex((v) => v.id == data.id);
-        
-                locaData[index]=data;
-        
-                localStorage.setItem('medicines', JSON.stringify(locaData));
-        
-                setUpdateMedicine(false)
-                
-                setMData(locaData)
-            } else {
-                locaData.push({ id: id, ...data });
-                localStorage.setItem('medicines', JSON.stringify(locaData));
-                setMData(locaData)
-            }
+        if (updateMedicine) {
+            dispatch(updateMedicines(data))
         } else {
-            localStorage.setItem('medicines', JSON.stringify([{ id, ...data }]));
-            setMData([{ id, ...data }])
+            dispatch(addMedicines(data))
         }
+        setUpdateMedicine(false)
     }
 
     const handleDelete = (id) => {
-        // console.log("ddddddd");
-        // let locaData = JSON.parse(localStorage.getItem('medicines'));
-        // const updateData = locaData.filter((v) => v.id !== id);
-        // localStorage.setItem('medicines', JSON.stringify(updateData));
-        // setMData(updateData);
         dispatch(deleteMedicines(id))
     }
 
     const handleEdit = (data) => {
-        // console.log(data);
-        // handleClickOpenDialog();
-        // setValues(data);
         setUpdateMedicine(data)
     }
 
@@ -74,10 +49,10 @@ export function Medicines() {
         {
             field: 'action', headerName: 'Action', width: 130, renderCell: (params) => (
                 <>
-                    <IconButton aria-label="edit" onClick={() => {handleEdit(params.row)}}>
+                    <IconButton aria-label="edit" onClick={() => { handleEdit(params.row) }}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => {handleDelete(params.row.id)}}>
+                    <IconButton aria-label="delete" onClick={() => { handleDelete(params.row.id) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
@@ -87,21 +62,26 @@ export function Medicines() {
 
     return (
         <div>
-            <MedicinesForm onhandlesubmit={handleFormSubmit} updateData={updateMedicine}/>
-           
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={medicine.medicines}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
-                />
-            </div>
+            <MedicinesForm onhandlesubmit={handleFormSubmit} updateData={updateMedicine} />
+            {
+                medicine.isLoading ? <div style={{ margin: '0 auto', padding: '10px 0' }}> <CircularProgress /> </div> :
+                    medicine.error ? <div style={{ margin: '0 auto', color: 'red', fontSize: '25px', padding: '10px 0' }}> {medicine.error} </div> :
+
+
+                        <div style={{ height: 400, width: '100%' }}>
+                            <DataGrid
+                                rows={medicine.medicines}
+                                columns={columns}
+                                initialState={{
+                                    pagination: {
+                                        paginationModel: { page: 0, pageSize: 5 },
+                                    },
+                                }}
+                                pageSizeOptions={[5, 10]}
+                                checkboxSelection
+                            />
+                        </div>
+            }
 
         </div>
 

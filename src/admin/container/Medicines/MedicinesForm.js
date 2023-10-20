@@ -61,6 +61,7 @@ function MedicinesForm({onhandlesubmit,updateData}) {
            <Button variant="outlined" onClick={handleClickOpenDialog}>
                 Add Medicine
             </Button>
+            
             <Dialog open={openDialog} onClose={handleCloseDialog} onSubmit={handleSubmit}>
                 <DialogTitle>Subscribe</DialogTitle>
                 <DialogContent>
