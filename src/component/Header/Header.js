@@ -8,10 +8,19 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { incrementCart } from '../../redux/action/cart.action';
 import { useSelector } from 'react-redux';
 
-function Header({wishList }) {
+function Header(props) {
 
-    const cart = useSelector(state=> state.cart) 
+    const cart = useSelector(state => state.cart)
     console.log(cart);
+
+    const cartCount = cart.cart.reduce((acc, v) => acc + v.qty, 0)
+    console.log(cartCount);
+
+    const wishList = useSelector(state => state.wishList)
+    console.log(wishList);
+
+    const wishListCount = wishList.wishList.reduce((acc,v) => acc + v, 0)
+    console.log(wishListCount);
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -36,16 +45,24 @@ function Header({wishList }) {
                             to={"/cart"}
                         >
                             <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={cart.cart.length} color="secondary">
+                                <StyledBadge badgeContent={cartCount} color="secondary">
                                     <ShoppingCartIcon />
                                 </StyledBadge>
                             </IconButton>
                         </NavLink>
-                        <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={wishList.length} color="secondary">
-                                <FavoriteBorderIcon />
-                            </StyledBadge>
-                        </IconButton>
+                        <NavLink
+                            className={({ isActive, isPending }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"
+                            }
+                            to={"/wishlist"}
+
+                        >
+                            <IconButton aria-label="cart">
+                                <StyledBadge badgeContent={wishListCount} color="secondary">
+                                    <FavoriteBorderIcon />
+                                </StyledBadge>
+                            </IconButton>
+                        </NavLink>
+
                         <a href="#" className="twitter"><i className="bi bi-twitter" /></a>
                         <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
                         <a href="#" className="instagram"><i className="bi bi-instagram" /></a>

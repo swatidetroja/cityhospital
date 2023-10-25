@@ -21,15 +21,15 @@ import Counter from '../container/Counter/Counter';
 import Cart from '../container/Cart/Cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment } from '../redux/action/counter.action';
+import Wishlist from '../container/Wishlist/Wishlist';
 
 function UserRoute(props) {
-    
-  const [wishList, setWishList] = useState([]);
-
+  
     return (
       <>
-       <Header wishList={wishList}/>
+       <Header />
         <Routes>
+        <Route exact path='/wishlist' element={<Wishlist/>} />
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/' element={<Home />} />
         <Route exact path='/reviewlink/:id' element={<Reviewlink />} />
@@ -38,7 +38,7 @@ function UserRoute(props) {
         <Route exact path='/doctors' element={<Doctors />} />
         <Route exact path='/about' element={<About />} />
         <Route exact path='/contact' element={<Contact />} />
-        <Route exact path='/medicines' element={<MedicinesUser wishList={wishList} setWishList={setWishList} />} />
+        <Route exact path='/medicines' element={<MedicinesUser />} />
         <Route exact path='/medicinedata/:id' element={<MedicinesData />} />
         <Route exact path='/form' element={<FormData />} />
         <Route exact path='/counter' element={<Counter />} />

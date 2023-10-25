@@ -14,7 +14,7 @@ function Card({ id, img = '', title = '', subtitle = '', btnValue = '', btnClick
                 <IconButton aria-label="wishlist" onClick={favClick}>
                     <Badge color="primary" >
                         {
-                            favStatus ? <FavoriteIcon /> : <FavoriteBorderIcon color="action" />
+                            favStatus ? <FavoriteIcon style={{color : '#FF6337'}}/> : <FavoriteBorderIcon color="action" />
                         }
                         
                     </Badge>

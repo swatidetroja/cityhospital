@@ -5,9 +5,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicines, loadingMedicines } from '../../redux/action/medicines.action';
 import CircularProgress from '@mui/material/CircularProgress';
-import { addToCart, incrementCart } from '../../redux/action/cart.action';
+import { addToCart } from '../../redux/action/cart.action';
+import { addToWishlist } from '../../redux/action/wishlist.action';
 
-function MedicinesUser({wishList ,setWishList}) {
+function MedicinesUser(props) {
 
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('');
@@ -16,9 +17,6 @@ function MedicinesUser({wishList ,setWishList}) {
 
   const medicines = useSelector(state=>state.medicines);
   console.log(medicines);
-
-  const cart = useSelector(state=> state.cart)
-  console.log(cart);
 
   // let locaData = JSON.parse(localStorage.getItem('medicines'));
   useEffect (() => {
@@ -53,20 +51,12 @@ function MedicinesUser({wishList ,setWishList}) {
 
   const handleAddToWishlist = (event, id) => {
     console.log(id);
-    if (wishList.includes(id)) {
-      let fData = wishList.filter((v) => v != id);
-      setWishList(fData)
-    } else {
-      setWishList( prev => [...prev,id])
-    }
+    dispatch(addToWishlist(id))
+    
   }
-  console.log(wishList);  
   
   const handleAddToCart = (event, id) => {
     console.log(id);
-    console.log("adddd");
-    // incrementCart((prev) => prev + 1);
-    dispatch(incrementCart())
     dispatch(addToCart(id));
 
   }
@@ -111,7 +101,7 @@ function MedicinesUser({wishList ,setWishList}) {
                       btnValue='Add to cart'
                       btnClick={(event) => handleAddToCart(event, v.id)}
                       favClick={(event) => handleAddToWishlist(event, v.id)}
-                      favStatus={(wishList.includes(v.id)) ? true : false}
+                      // favStatus={(wishList.includes(v.id)) ? true : false}
                     />
   
                   </div>

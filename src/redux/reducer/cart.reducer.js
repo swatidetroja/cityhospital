@@ -1,37 +1,59 @@
-import { ADD_TO_CART, INCREMENT_CART } from "../Action.type";
+import { ADD_TO_CART, DECREMENT_QTY, DELETE_ITEM, INCREMENT_QTY } from "../Action.type";
 
 const initialState = {
     isLoading: false,
     cart: [],
-    error:null,
-    count:0
+    error: null,
 }
 
-export const cartReducer = (state=initialState, action) =>{
+export const cartReducer = (state = initialState, action) => {
     console.log(action);
     console.log(state.cart);
-    switch(action.type) {
+    switch (action.type) {
         case ADD_TO_CART:
             let check = state.cart.some((v) => v.id === action.payload.id)
             console.log(check);
 
-            if(check){
+            if (check) {
                 let index = state.cart.findIndex((v) => v.id === action.payload.id);
                 console.log(index);
                 state.cart[index].qty++
-            }else{
+            } else {
                 state.cart.push(action.payload)
             }
-            return{
-                cart : state.cart
+            return {
+                isLoading: false,
+                cart: state.cart,
+                error: null
             }
-        case INCREMENT_CART:
-            return{
+        case INCREMENT_QTY:
+            let index = state.cart.findIndex((v) => v.id === action.payload)
+            console.log(index);
+            state.cart[index].qty++
+            return {
+                isLoading: false,
+                cart: state.cart,
+                error: null
+            }
+        case DECREMENT_QTY:
+            let index1 = state.cart.findIndex((v) => v.id === action.payload);
+            console.log(index1);
+            if (state.cart[index1].qty > 1) {
+                state.cart[index1].qty--;
+            }
+            return {
+                isLoading: false,
+                cart: state.cart,
+                error: null
+            }
+        case DELETE_ITEM:
+           
+            return {
                 ...state,
-                count : state.count + 1
+                cart : state.cart.filter((v) => v.id !== action.payload)
             }
         default:
             return state
     }
-   
+
 }

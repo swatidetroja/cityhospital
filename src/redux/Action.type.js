@@ -1,5 +1,3 @@
-import { ExploreOffOutlined } from "@mui/icons-material";
-
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
@@ -16,4 +14,9 @@ export const ADD_DEPARTMENTS = 'ADD_DEPARTMENTS';
 export const UPDATE_DEPARTMENTS = 'UPDATE_DEPARTMENTS';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
-export const INCREMENT_CART = 'INCREMENT_CART';
+export const INCREMENT_QTY= 'INCREMENT_QTY';
+export const DECREMENT_QTY= 'DECREMENT_QTY';
+export const DELETE_ITEM = 'DELETE_ITEM';
+
+export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+
