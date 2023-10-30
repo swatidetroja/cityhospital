@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sectionheading } from '../../component/UI/Heading/Heading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDoctor } from '../../redux/action/doctor.action';
 
 
 function Doctors(props) {
 
-    let locaData = JSON.parse(localStorage.getItem('doctor'));
-    console.log(locaData);
+    const dispatch = useDispatch();
 
+    const doctor = useSelector(state=>state.doctor)
+    console.log(doctor);
+
+    useEffect(() => {
+        dispatch(getDoctor())
+    },[])
     return (
         <>
             <main>
@@ -21,7 +28,7 @@ function Doctors(props) {
                         </div>
                         <div style={{display:'flex', flexWrap:'wrap',justifyContent: 'space-between'}} >
                             {
-                                locaData.map((v) => {
+                                doctor.doctor.map((v) => {
                                     return (
                                         <div style={{width:'420px',border:'2px solid grey', borderRadius:'5px',textAlign:'center',padding:'10px',margin:'20px 15px'}}>
                                             <h4>{v.name}</h4>

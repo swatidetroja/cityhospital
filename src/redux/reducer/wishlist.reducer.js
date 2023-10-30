@@ -1,4 +1,4 @@
-import { ADD_TO_WISHLIST } from "../Action.type";
+import { ADD_TO_WISHLIST, REMOVE_FROME_WISHLIST } from "../Action.type";
 
 const initailState = {
     isLoading: false,
@@ -11,19 +11,23 @@ export const wishListReducer = (state = initailState, action) => {
     console.log(state.wishList);
     switch (action.type) {
         case ADD_TO_WISHLIST:
-            let check = state.wishList.some((v) => v.id === action.payload.id);
+            let check = state.wishList.some((v) => v === action.payload);
             console.log(check);
-
-            if (check) {
-                let index = state.wishList.findIndex((w) => w.id === action.payload.id);
-                console.log(index);
-                state.wishList[index]++;
-            } else {
-                state.wishList.push(action.payload)
-            }
+            state.wishList.push(action.payload)
+            // if (check) {
+            //     let index = state.wishList.findIndex((w) => w === action.payload);
+            //     console.log(index);
+            //     state.wishList[index]++;
+            // } else {
+                
+            // }
             return {
+                wishList : state.wishList
+            }
+        case REMOVE_FROME_WISHLIST :
+            return{
                 ...state,
-                wishList: state.wishList.push(action.payload)
+                wishList : state.wishList.filter((v,i) => v.id !== action.payload)
             }
         default:
             return state;

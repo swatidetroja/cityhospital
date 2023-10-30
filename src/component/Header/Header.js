@@ -6,7 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { incrementCart } from '../../redux/action/cart.action';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToWishlist, removeFromWishlist } from '../../redux/action/wishlist.action';
 
 function Header(props) {
 
@@ -39,30 +40,24 @@ function Header(props) {
                         <i className="bi bi-phone" /> +91 9988776655
                     </div>
                     <div className="d-none d-lg-flex social-links align-items-center">
-                        <NavLink
+                        <Link
                             className={({ isActive, isPending }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"
                             }
                             to={"/cart"}
                         >
-                            <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={cartCount} color="secondary">
+                                <StyledBadge badgeContent={cartCount} color="secondary" style={{color:'#FF6337'}}>
                                     <ShoppingCartIcon />
                                 </StyledBadge>
-                            </IconButton>
-                        </NavLink>
-                        <NavLink
+                        </Link>
+                        <Link
                             className={({ isActive, isPending }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"
                             }
-                            to={"/wishlist"}
-
+                            to={"/wishlist"}                        
                         >
-                            <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={wishListCount} color="secondary">
+                                <StyledBadge badgeContent={wishListCount} color="secondary" style={{color:'#FF6337'}}>
                                     <FavoriteBorderIcon />
                                 </StyledBadge>
-                            </IconButton>
-                        </NavLink>
-
+                        </Link>
                         <a href="#" className="twitter"><i className="bi bi-twitter" /></a>
                         <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
                         <a href="#" className="instagram"><i className="bi bi-instagram" /></a>

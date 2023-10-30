@@ -124,7 +124,6 @@ function DoctorForm({ onhandlesubmit, updateData }) {
                     <Button onClick={handleSubmit} type='submit'>{updateData ? 'Update' : 'Add'}</Button>
                 </DialogActions>
             </Dialog>
-
         </>
     );
 }

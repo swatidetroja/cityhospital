@@ -4,52 +4,34 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoctorForm from './DoctorForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { addDoctor, deleteDoctor, editDoctor, getDoctor } from '../../../redux/action/doctor.action';
 
 function Doctor(props) {
     const [dData, setDData] = useState([]);
     const [updateDoctor, setUpadteDoctor] = useState(false);
 
-    React.useEffect(() => {
-        let locaData = JSON.parse(localStorage.getItem('doctor'));
+    const dispatch = useDispatch();
 
-        if (locaData) {
-            setDData(locaData)
-        }
+    const doctor = useSelector(state=>state.doctor);
+    console.log(doctor);
+
+    React.useEffect(() => {
+        dispatch(getDoctor())
     },[])
 
     const handleFormSubmit = (data) => {
-        let id = Math.floor(Math.random() * 1000);
-        let locaData = JSON.parse(localStorage.getItem('doctor'));
+       if(updateDoctor){
+        dispatch(editDoctor(data))
+       }else{
+        dispatch(addDoctor(data))
+       }
 
-        if (locaData) {
-
-            if(updateDoctor){
-                let index = locaData.findIndex((v) => v.id == data.id);
-
-                locaData[index]=data;
-
-                localStorage.setItem('doctor', JSON.stringify(locaData));
-
-                setUpadteDoctor(false);
-
-                setDData(locaData)
-            }else{
-                locaData.push({ id: id, ...data});
-                localStorage.setItem('doctor',JSON.stringify(locaData));
-                setDData(locaData)
-            }
-        }else{
-            localStorage.setItem('doctor',JSON.stringify([{ id, ...data}]));
-            setDData([{ id, ...data}]);
-        }
+       setUpadteDoctor (false);
     }
 
     const handleDelete = (id) => {
-        console.log("delete");
-        let locaData = JSON.parse(localStorage.getItem('doctor'));
-        const updateData = locaData.filter((v) => v.id !== id);
-        localStorage.setItem('doctor',JSON.stringify(updateData));
-        setDData(updateData);
+       dispatch(deleteDoctor(id))
     }
 
     const handleEdit = (data) => {
@@ -80,7 +62,7 @@ function Doctor(props) {
            
            <div style={{ height: 400, width: '100%' }}>
                <DataGrid
-                   rows={dData}
+                   rows={doctor.doctor}
                    columns={columns}
                    initialState={{
                        pagination: {

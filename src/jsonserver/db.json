@@ -50,18 +50,11 @@
       "desc": "Orlistat, sold under the brand name Xenical among others, is a medication used to treat obesity. "
     },
     {
-      "id": 9,
-      "name": "xyz",
-      "price": 50,
-      "expiry": "2023-10-22",
-      "desc": "xbsjaxjhsa"
-    },
-    {
-      "id": 11,
-      "name": "jhgjgjasd",
-      "price": 20,
-      "expiry": "2023-10-28",
-      "desc": "mbjjj"
+      "name": "axiosdone",
+      "price": 400,
+      "expiry": "2023-10-30",
+      "desc": "jbjhvj",
+      "id": 9
     }
   ],
   "department": [
@@ -76,6 +69,21 @@
       "name": "Cancer",
       "sortdes": "Quisque sapien ipsum, efficitur ac dui et, fringilla viverra tellus. Proin urna augue, posuere ut pellentesque quis, cursus ac neque.",
       "longdes": "Vivamus nisi mauris, blandit quis sem sit amet, posuere blandit diam. Cras quis quam suscipit, tincidunt neque non, ullamcorper erat. Quisque sapien ipsum, efficitur ac dui et, fringilla viverra tellus. Proin urna augue, posuere ut pellentesque quis, cursus ac neque."
+    }
+  ],
+  "doctor": [
+    {
+      "id": 1,
+      "name": "xyz",
+      "desc": "aaaaaaaaaaaaaaaaaa",
+      "profile": "http//facebook.com"
+    },
+    {
+      "name": "aqwerfrttttttttt",
+      "desc": "cdscvdsv",
+      "desig": "cscsac",
+      "profile": "cscs",
+      "id": 2
     }
   ]
 }

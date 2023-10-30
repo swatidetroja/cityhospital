@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMedicines, loadingMedicines } from '../../redux/action/medicines.action';
 import CircularProgress from '@mui/material/CircularProgress';
 import { addToCart } from '../../redux/action/cart.action';
-import { addToWishlist } from '../../redux/action/wishlist.action';
+import { addToWishlist, removeFromWishlist } from '../../redux/action/wishlist.action';
+import Wishlist from '../Wishlist/Wishlist';
 
 function MedicinesUser(props) {
 
@@ -52,7 +53,6 @@ function MedicinesUser(props) {
   const handleAddToWishlist = (event, id) => {
     console.log(id);
     dispatch(addToWishlist(id))
-    
   }
   
   const handleAddToCart = (event, id) => {
@@ -85,8 +85,6 @@ function MedicinesUser(props) {
         </select>
       </div>
       <div className='container' style={{ display: 'flex', flexWrap: 'wrap' }}>
-        
-        
         {
           medicines.isLoading ? <div style={{margin:'0 auto', padding:'10px 0'}}> <CircularProgress /> </div>:
           medicines.error ? <div style={{margin:'0 auto',color:'red',fontSize:'25px', padding:'10px 0'}}> {medicines.error} </div> :
@@ -103,15 +101,12 @@ function MedicinesUser(props) {
                       favClick={(event) => handleAddToWishlist(event, v.id)}
                       // favStatus={(wishList.includes(v.id)) ? true : false}
                     />
-  
                   </div>
                   {/* </Link> */}
                 </div>
               )
             })
           }
-        
-        
       </div>
     </>
   );

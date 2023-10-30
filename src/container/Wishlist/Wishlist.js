@@ -1,21 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromWishlist } from '../../redux/action/wishlist.action';
+import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Wishlist(props) {
+
+    const dispatch = useDispatch();
 
     const medicines = useSelector(state=> state.medicines);
     console.log(medicines);
 
-    const wishList = useSelector(state=>state.wishList);
+    const wishList = useSelector(state=>state.wishList)
     console.log(wishList);
 
     const wishlistData = wishList.wishList.map((v) => {
-        const med = medicines.find((m) => m.id === v.id)
-        console.log(med);
-
+        const med = medicines.medicines.find((m) => v === m.id)
+        
         return med
     })  
     console.log(wishlistData);
+
+    const handleDelete = (id) => {
+        dispatch(removeFromWishlist(id))
+    }
   
     return (
         <div>
@@ -32,23 +40,22 @@ function Wishlist(props) {
                                         <div className="col-md-2">
                                             <h4>Price</h4>
                                         </div>
-                                        <div className="col-md-2">
-                                            <h4>Quantity</h4>
-                                        </div>
+                                        
+                                        
                                         <div className="col-md-2">
                                             <h4>Remove</h4>
                                         </div>
                                     </div>
                                 </div>
                                {
-                                wishList.map((v) => {
+                                wishlistData.map((v) => {
                                     return(
                                         <div className="cart-item">
                                         <div className="row">
                                             <div className="col-md-6 my-auto">
                                                 <a href>
                                                     <label className="product-name">
-                                                        <img src="hp-laptop.jpg" style={{ width: 50, height: 50 }} alt />
+                                                        {/* <img src="hp-laptop.jpg" style={{ width: 50, height: 50 }} alt /> */}
                                                         {v.name}
                                                     </label>
                                                 </a>
@@ -56,20 +63,9 @@ function Wishlist(props) {
                                             <div className="col-md-2 my-auto">
                                                 <label className="price">{v.price}</label>
                                             </div>
-                                            <div className="col-md-2 col-7 my-auto">
-                                                <div className="quantity">
-                                                    <div className="input-group">
-                                                        <span className="btn btn1"><i className="fa fa-minus" /></span>
-                                                        <input type="text" defaultValue={1} className="input-quantity" />
-                                                        <span className="btn btn1"><i className="fa fa-plus" /></span>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div className="col-md-2 col-5 my-auto">
                                                 <div className="remove">
-                                                    <a href className="btn btn-danger btn-sm">
-                                                        <i className="fa fa-trash" /> Remove
-                                                    </a>
+                                                        <Link onClick={() => handleDelete(v.id)}><DeleteIcon /></Link>
                                                 </div>
                                             </div>
                                         </div>

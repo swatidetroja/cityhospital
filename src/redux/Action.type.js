@@ -17,6 +17,12 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const INCREMENT_QTY= 'INCREMENT_QTY';
 export const DECREMENT_QTY= 'DECREMENT_QTY';
 export const DELETE_ITEM = 'DELETE_ITEM';
-
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+export const REMOVE_FROME_WISHLIST = 'REMOVE_FROME_WISHLIST';
 
+export const GET_DOCTOR = 'GET_DOCTOR';
+export const DELETE_DOCTOR = 'DELETE_DOCTOR';
+export const ADD_DOCTOR = 'ADD_DOCTOR';
+export const UPDATE_DOCTOR = 'UPDATE_DOCTOR';
+export const LOADING_DOCTOR = 'LOADING_DOCTOR';
+export const ERROR_DOCTOR = 'ERROR_DOCTOR';
